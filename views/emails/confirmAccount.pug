@@ -1,0 +1,10 @@
+extends baseEmail
+
+block content
+    .content
+        h2 Hi #{firstName},
+        p Thanks for signing up with Natours! Please confirm your email address by clicking the button below:
+        a.btn(href=`${url}`) Confirm Email
+        p If you have any issues, please contact us at support@natours.com.
+        p Welcome aboard,
+        p The Natours Team

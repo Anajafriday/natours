@@ -1,0 +1,76 @@
+
+doctype html
+html
+  head
+    title Email Verification
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f6f6f6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+      }
+      .icon {
+        font-size: 50px;
+        margin-bottom: 20px;
+      }
+      .success-icon {
+        color: #28a745;
+      }
+      .error-icon {
+        color: #dc3545;
+      }
+      h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        color: #555555;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #28a745;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+      .btn:hover {
+        background-color: #55c57a;
+      }
+  body
+    div.container
+      if message.includes('successfully')
+        div.icon.success-icon
+          | 
+          svg(xmlns="http://www.w3.org/2000/svg", viewBox="0 0 24 24")
+                path(d="M12 0C5.371 0 0 5.371 0 12s5.371 12 12 12 12-5.371 12-12S18.629 0 12 0zm-1.707 17.293l-5-5 1.414-1.414L10.293 14.586l6.293-6.293 1.414 1.414-7.707 7.707z")
+        h1 Success!
+        p= message
+        a.btn(href=`/login`) Start Exploring Tours
+      else
+        div.icon.error-icon
+          | 
+          svg(xmlns="http://www.w3.org/2000/svg", viewBox="0 0 24 24")
+                path(d="M12 0C5.371 0 0 5.371 0 12s5.371 12 12 12 12-5.371 12-12S18.629 0 12 0zm-1 7h2v6h-2V7zm0 8h2v2h-2v-2z")
+        h1 Error
+        p= message
+        a.btn(href=`/resend-verification?email=${email}`) Resend Verification Link
