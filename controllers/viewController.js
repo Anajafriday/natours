@@ -67,7 +67,8 @@ exports.getAccountVerified = catchAsyncError(async (req, res, next) => {
   try {
     // Sending a POST request to the API endpoint
     const response = await axios.post(
-      `http://localhost:3000/api/v1/users/verifyMe/${token}`
+      // `http://localhost:3000/api/v1/users/verifyMe/${token}`
+      `/api/v1/users/verifyMe/${token}`
     );
     if (response.data.status === "success") {
       return res.render("verify", {
