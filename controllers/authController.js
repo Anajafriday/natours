@@ -35,7 +35,6 @@ async function sendVerificationEmail(user, next, req) {
   // create the token refer to user modal
   const verificationToken = await user.createEmailVerificationToken();
   await user.save({ validateBeforeSave: false });
-  const currEmail = "";
   // url
   // const url = `${req.protocol}://${req.get("host")}/api/v1/users/verifyMe/${verificationToken}`;
   const url = `${req.protocol}://${req.get("host")}/verify/${verificationToken}`;
