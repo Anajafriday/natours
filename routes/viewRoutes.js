@@ -18,8 +18,9 @@ router.get(
   viewController.getTourDetail
 );
 router.get("/login", authController.isLoggedIn, viewController.loginUserForm);
+router.get("/signup", authController.isLoggedIn, viewController.signupUserForm);
 router.get("/account", authController.protect, viewController.getAccount);
-router.get("/mybooking", authController.protect, bookingController.getMybooking)
+router.get("/mybooking", authController.protect, viewController.getMybooking)
 // router.post(
 //   "/update-user-data",
 //   authController.protect,

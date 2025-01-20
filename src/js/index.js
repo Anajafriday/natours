@@ -2,7 +2,9 @@ import { renderMap } from "./mapbox";
 import { login, logout } from "./login";
 import { updateUserSetting } from "./updateUserSetting";
 import { bookTour } from "./stripe";
+import { signup } from "./signup";
 const loginForm = document.querySelector(".form-login");
+const signupForm = document.querySelector(".form-signup");
 const updateUserForm = document.querySelector(".form-user-data");
 const locationsEl = document.getElementById("map");
 const logoutBtn = document.querySelector(".nav__el--logout");
@@ -14,6 +16,19 @@ if (locationsEl) {
 }
 
 if (logoutBtn) logoutBtn.addEventListener("click", logout);
+
+if (signupForm)
+  signupForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const name = formData.get("fullname");
+    const passwordConfirm = formData.get("passwordConfirm");
+    signup({ email, password, name, passwordConfirm });
+  });
+
+
 if (loginForm)
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -22,6 +37,8 @@ if (loginForm)
     const password = formData.get("password");
     login({ email, password });
   });
+
+
 
 if (updateUserForm) {
   updateUserForm.addEventListener("submit", (e) => {
@@ -66,7 +83,7 @@ if (changePasswordForm) {
 const photoInput = document.getElementById("photo");
 const photoInputLabel = document.querySelector(".file-label");
 if (photoInput && photoInputLabel) {
-  console.log(photoInput, photoInputLabel);
+  // console.log(photoInput, photoInputLabel);
   photoInput.addEventListener("change", () => {
     photoInputLabel.style.color = "rgba(40, 180, 135, 0.85)";
     photoInputLabel.style.fontWeight = "bold";

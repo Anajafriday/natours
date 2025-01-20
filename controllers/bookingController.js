@@ -46,19 +46,10 @@ exports.createBookingCheckout = catchAsyncError(async (req, res, next) => {
   res.redirect(req.originalUrl.split("?")[0]);
 });
 
-exports.getMybooking = catchAsyncError(async (req, res, next) => {
-  const mybooking = await Booking.findOne({ user: req.user.id })
-  console.log(req.originalUrl)
-  const tours = mybooking.map(book => book.tour)
-  res.render("overview", { title: "my bookings", tours: mybooking })
-  // res.status(200).json({
-  //   status: "success", data: {
-  //     resulst: mybooking.length,
-  //     mybooking
-  //   }
-  // })
-})
+
 // admin
 exports.getAllBookings = factory.getAll(Booking)
 exports.getBooking = factory.getOne(Booking)
 exports.createBooking = factory.createOne(Booking)
+exports.updateBooking = factory.updateOne(Booking)
+exports.deleteBooking = factory.deleteOne(Booking)

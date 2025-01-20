@@ -45,7 +45,7 @@ async function sendVerificationEmail(user, next, req) {
     await new Email(user, url).sendAccountConfirm();
     //
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
     user.emailVerificationToken = undefined;
     user.emailVerificationTokenExpiresIn = undefined;
     await user.save({ validateBeforeSave: false });
