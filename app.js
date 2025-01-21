@@ -8,6 +8,7 @@ const xssSanitizer = require("xss-clean");
 const hpp = require("hpp");
 const cookieParser = require("cookie-parser");
 const compression = require("compression")
+const cors = require("cors")
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/erroController");
 const app = express();
@@ -16,6 +17,12 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
+// global middleware
+app.use(cors())
+// allow access origin to * all
+// if our frtend is on natours.com and backend is on api.natours.dev
+// app.use(cors({ origin: "natours.com" })) set the access to only our frontend
+app.options("*", cors())
 // Middleware for security headers
 app.enable("trust proxy")
 const scriptSrcUrls = ["https://unpkg.com/", "https://tile.openstreetmap.org"];
