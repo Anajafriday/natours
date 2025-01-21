@@ -4,7 +4,7 @@ const Booking = require("../model/bookingModel");
 const User = require("../model/userModel");
 const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 const factory = require("./factoryFunctions");
-const bookingModel = require("../model/bookingModel");
+// const bookingModel = require("../model/bookingModel");
 exports.getCheckout = catchAsyncError(async (req, res, next) => {
   // 1) find the current booked tour
   const tour = await Tour.findById(req.params.tourId);
