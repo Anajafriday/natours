@@ -37,8 +37,14 @@ const fontSrcUrls = ["fonts.googleapis.com", "fonts.gstatic.com"];
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: [],
-      connectSrc: ["'self'", ...connectSrcUrls],
+      defaultSrc: ["'self'"],
+      connectSrc: [
+        "'self'",
+        'https://natours-by-friday.onrender.com',
+        'https://checkout.stripe.com',
+        'https://billing.stripe.com/session',
+        ...connectSrcUrls
+      ],
       scriptSrc: ["'self'", ...scriptSrcUrls],
       styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
       workerSrc: ["'self'", "blob:"],
