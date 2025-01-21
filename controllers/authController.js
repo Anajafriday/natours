@@ -11,7 +11,7 @@ const signToken = (id) =>
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
-const createSendToken = (user, res, statusCode) => {
+const createSendToken = (user, res, statusCode, req) => {
   const token = signToken(user._id);
   const cookieOptions = {
     expires: new Date(
@@ -19,8 +19,10 @@ const createSendToken = (user, res, statusCode) => {
     ),
     // secure:true, // only in production
     httpOnly: true,
+    secure: req.secure
   };
-  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+  // if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+  // if (req.secure) cookieOptions.secure = true;
   user.password = undefined;
   user.passwordUpdatedAt = undefined;
   res.cookie("jwt", token, cookieOptions);
@@ -154,7 +156,7 @@ exports.verifyEmail = catchAsyncError(async (req, res, next) => {
   await new Email(user, url).sendWelcome();
 
   // 4) login the user
-  createSendToken(user, res, 201);
+  createSendToken(user, res, 201, req);
 });
 
 exports.verifyNewEmail = catchAsyncError(async (req, res, next) => {
@@ -176,7 +178,7 @@ exports.verifyNewEmail = catchAsyncError(async (req, res, next) => {
   // save changes
   await user.save({ validateBeforeSave: false });
   // 4) login the user
-  createSendToken(user, res, 201);
+  createSendToken(user, res, 201, req);
 });
 
 exports.login = catchAsyncError(async (req, res, next) => {
@@ -200,7 +202,7 @@ exports.login = catchAsyncError(async (req, res, next) => {
     );
 
   // 3 if ok send tokens to the client
-  createSendToken(user, res, 200);
+  createSendToken(user, res, 200, req);
 });
 
 exports.protect = catchAsyncError(async (req, res, next) => {
@@ -361,7 +363,7 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
   // 3) update passwordUpdated at
   // refer usermodel line 58
   // 4) login the user
-  createSendToken(user, res, 201);
+  createSendToken(user, res, 201, req);
 });
 
 exports.updatePassword = catchAsyncError(async (req, res, next) => {
@@ -377,5 +379,5 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
   user.passwordConfirm = req.body.passwordConfirm;
   await user.save();
   // 4) login user,send jwt
-  createSendToken(user, res, 200);
+  createSendToken(user, res, 200, req);
 });

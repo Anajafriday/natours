@@ -7,16 +7,17 @@ const mongoSanitizer = require("express-mongo-sanitize");
 const xssSanitizer = require("xss-clean");
 const hpp = require("hpp");
 const cookieParser = require("cookie-parser");
+const compression = require("compression")
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/erroController");
 const app = express();
-
 // Pug setup
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Middleware for security headers
+app.enable("trust proxy")
 const scriptSrcUrls = ["https://unpkg.com/", "https://tile.openstreetmap.org"];
 const styleSrcUrls = [
   "https://unpkg.com/",
@@ -56,6 +57,7 @@ app.use("/api", limiter);
 // body parser
 // Middleware for cookies
 app.use(cookieParser());
+app.use(compression())
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(mongoSanitizer());
