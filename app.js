@@ -67,6 +67,9 @@ const limiter = rateLimit({
   message: "Too many requests from this IP, try again in an hour.",
 });
 app.use("/api", limiter);
+const bookingController = require("./controllers/bookingController");
+
+app.post("/webhook-checkout", express.raw({ type: "application/json" }), bookingController.createCheckoutWebhook)
 // body parser
 // Middleware for cookies
 app.use(cookieParser());
@@ -97,7 +100,6 @@ const userRouter = require("./routes/userRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const viewRouter = require("./routes/viewRoutes");
 const bookingRouter = require("./routes/bookingRoutes");
-
 // SSR Routes for Pug templates
 app.use("/", viewRouter);
 

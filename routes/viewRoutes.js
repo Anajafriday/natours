@@ -1,13 +1,13 @@
 const express = require("express");
 const viewController = require("../controllers/viewController");
 const authController = require("../controllers/authController");
-const bookingController = require("../controllers/bookingController");
+// const bookingController = require("../controllers/bookingController");
 const router = express.Router();
 router.get("/verify/:token", viewController.getAccountVerified);
 router.use(authController.isLoggedIn);
 router.get(
   "/",
-  bookingController.createBookingCheckout,
+  // bookingController.createBookingCheckout,
   authController.isLoggedIn,
   viewController.getOverview
 );
