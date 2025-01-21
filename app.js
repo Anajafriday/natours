@@ -24,7 +24,7 @@ app.use(cors())
 // app.use(cors({ origin: "natours.com" })) set the access to only our frontend
 app.options("*", cors())
 // Middleware for security headers
-app.enable("trust proxy")
+// app.enable("trust proxy")
 const scriptSrcUrls = ["https://unpkg.com/", "https://tile.openstreetmap.org"];
 const styleSrcUrls = [
   "https://unpkg.com/",
